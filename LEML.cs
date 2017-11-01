@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -16,12 +17,17 @@ namespace kenjiuno.LEML {
         /// <summary>
         /// All headers that allow same key names
         /// </summary>
-        public List<Tuple<string, string>> allHeaders { get; } = new List<Tuple<string, string>>();
+        public List<KeyValuePair<string, string>> allHeaders { get; } = new List<KeyValuePair<string, string>>();
         /// <summary>
         /// Some headers: last one captured by key name
         /// </summary>
         public SortedDictionary<string, string> dictHeaders { get; } = new SortedDictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
+        /// <summary>
+        /// Obtain last header value by key name
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>text if found, otherwise null</returns>
         public string GetValue(string key) {
             string text;
             if (!dictHeaders.TryGetValue(key, out text)) {
@@ -53,6 +59,10 @@ namespace kenjiuno.LEML {
         /// </summary>
         public List<EML> multiparts = new List<EML>();
 
+        /// <summary>
+        /// Consturct from mail entity
+        /// </summary>
+        /// <param name="entity"></param>
         public EML(Mail entity) {
             this.entity = entity;
             var rows = entity.rawBody.Replace("\r\n", "\n").Split('\n');
@@ -66,7 +76,7 @@ namespace kenjiuno.LEML {
                 }
                 if (!char.IsWhiteSpace(row[0])) {
                     if (key != null) {
-                        allHeaders.Add(new Tuple<string, string>(key, value));
+                        allHeaders.Add(new KeyValuePair<string, string>(key, value));
                         key = null; value = null;
                     }
                     String[] cols = row.Split(new char[] { ':' }, 2);
@@ -83,10 +93,10 @@ namespace kenjiuno.LEML {
                 }
             }
             if (key != null) {
-                allHeaders.Add(new Tuple<string, string>(key, value));
+                allHeaders.Add(new KeyValuePair<string, string>(key, value));
             }
             foreach (var pair in allHeaders) {
-                dictHeaders[pair.Item1] = pair.Item2;
+                dictHeaders[pair.Key] = pair.Value;
             }
             fullBody = String.Join("\n", rows, y, cy - y);
 
@@ -129,62 +139,83 @@ namespace kenjiuno.LEML {
             }
         }
 
+        /// <summary>
+        /// Content-Type, or string.Empty
+        /// </summary>
         public String ContentType {
             get {
-                foreach (var pair in new HorzKeyValue(GetValue("Content-Type") ?? "").pairs) {
-                    if (pair.Item1.Length == 0) {
-                        return pair.Item2;
+                foreach (var pair in FieldBodyParser.Parse(GetValue("Content-Type") ?? "")) {
+                    if (pair.Key.Length == 0) {
+                        return pair.Value;
                     }
                 }
                 return "";
             }
         }
 
+        /// <summary>
+        /// Content-Disposition, or string.Empty
+        /// </summary>
         public String ContentDisposition {
             get {
-                foreach (var pair in new HorzKeyValue(GetValue("Content-Disposition") ?? "").pairs) {
-                    if (pair.Item1.Length == 0) {
-                        return pair.Item2;
+                foreach (var pair in FieldBodyParser.Parse(GetValue("Content-Disposition") ?? "")) {
+                    if (pair.Key.Length == 0) {
+                        return pair.Value;
                     }
                 }
                 return "";
             }
         }
 
+        /// <summary>
+        /// Content-Disposition.FileName, or Content-Type.Name, or string.Empty
+        /// </summary>
         public String FileName {
             get {
-                foreach (var pair in new HorzKeyValue(GetValue("Content-Disposition") ?? "").pairs) {
-                    if (pair.Item1.Equals("FileName", StringComparison.InvariantCultureIgnoreCase)) {
-                        return pair.Item2;
+                foreach (var pair in FieldBodyParser.Parse(GetValue("Content-Disposition") ?? "")) {
+                    if (pair.Key.Equals("FileName", StringComparison.InvariantCultureIgnoreCase)) {
+                        return pair.Value;
                     }
                 }
-                foreach (var pair in new HorzKeyValue(GetValue("Content-Type") ?? "").pairs) {
-                    if (pair.Item1.Equals("Name", StringComparison.InvariantCultureIgnoreCase)) {
-                        return pair.Item2;
+                foreach (var pair in FieldBodyParser.Parse(GetValue("Content-Type") ?? "")) {
+                    if (pair.Key.Equals("Name", StringComparison.InvariantCultureIgnoreCase)) {
+                        return pair.Value;
                     }
                 }
                 return "";
             }
         }
 
+        /// <summary>
+        /// From, or string.Empty
+        /// </summary>
         public String From {
             get {
                 return GetValue("From") ?? "";
             }
         }
 
+        /// <summary>
+        /// To, or string.Empty
+        /// </summary>
         public String To {
             get {
                 return GetValue("To") ?? "";
             }
         }
 
+        /// <summary>
+        /// Subject, or string.Empty
+        /// </summary>
         public String Subject {
             get {
                 return GetValue("Subject") ?? "";
             }
         }
 
+        /// <summary>
+        /// PerceivedType of ContentType, or string.Empty
+        /// </summary>
         public String PerceivedType {
             get {
                 String[] cols = ContentType.Split('/');
@@ -192,36 +223,45 @@ namespace kenjiuno.LEML {
             }
         }
 
+        /// <summary>
+        /// boundary in Content-Type, or string.Empty
+        /// </summary>
         public String Boundary {
             get {
-                foreach (var pair in new HorzKeyValue(GetValue("Content-Type") ?? "").pairs) {
-                    if (StringComparer.InvariantCultureIgnoreCase.Compare("boundary", pair.Item1) == 0) {
-                        return pair.Item2;
+                foreach (var pair in FieldBodyParser.Parse(GetValue("Content-Type") ?? "")) {
+                    if (StringComparer.InvariantCultureIgnoreCase.Compare("boundary", pair.Key) == 0) {
+                        return pair.Value;
                     }
                 }
                 return "";
             }
         }
 
+        /// <summary>
+        /// charset in Content-Type, or string.Empty
+        /// </summary>
         public String CharacterSet {
             get {
-                foreach (var pair in new HorzKeyValue(GetValue("Content-Type") ?? "").pairs) {
-                    if (StringComparer.InvariantCultureIgnoreCase.Compare("charset", pair.Item1) == 0) {
-                        return pair.Item2;
+                foreach (var pair in FieldBodyParser.Parse(GetValue("Content-Type") ?? "")) {
+                    if (StringComparer.InvariantCultureIgnoreCase.Compare("charset", pair.Key) == 0) {
+                        return pair.Value;
                     }
                 }
                 return "";
             }
         }
 
+        /// <summary>
+        /// Content-Transfer-Encoding or string.Empty
+        /// </summary>
         public String ContentTransferEncoding {
             get {
-                foreach (var pair in new HorzKeyValue(GetValue("Content-Transfer-Encoding") ?? "").pairs) {
-                    if (pair.Item1.Length == 0) {
-                        return pair.Item2;
+                foreach (var pair in FieldBodyParser.Parse(GetValue("Content-Transfer-Encoding") ?? "")) {
+                    if (pair.Key.Length == 0) {
+                        return pair.Value;
                     }
                 }
-                return "";
+                return string.Empty;
             }
         }
 
@@ -250,6 +290,9 @@ namespace kenjiuno.LEML {
             }
         }
 
+        /// <summary>
+        /// Date or string.Empty
+        /// </summary>
         public DateTime? Date {
             get {
                 try {
@@ -262,10 +305,18 @@ namespace kenjiuno.LEML {
         }
     }
 
-    class UtilMimeBody {
+    /// <summary>
+    /// Raw data composer for EML
+    /// </summary>
+    public static class UtilMimeBody {
+        /// <summary>
+        /// Get bytes from EML
+        /// </summary>
+        /// <param name="eml"></param>
+        /// <returns>byte array</returns>
         public static byte[] GetBodyBytes(EML eml) {
-            var cte = eml.ContentTransferEncoding;
-            if (cte == "base64") {
+            var encoding = eml.ContentTransferEncoding;
+            if (encoding == "base64") {
                 return Convert.FromBase64String(eml.contents);
             }
             return Encoding.GetEncoding("latin1").GetBytes(eml.contents);
@@ -275,13 +326,13 @@ namespace kenjiuno.LEML {
     /// <summary>
     /// RFC 2047 encoded-word decoder
     /// </summary>
-    class UtilDecodeRfc2047 {
-        public String Decode(String text) {
+    public static class UtilDecodeRfc2047 {
+        public static string Decode(String text) {
             String r = Regex.Replace(text, "=\\?(?<c>[^\\?]+)\\?(?<e>[BbQq])\\?(?<b>[^\\?]+)\\?=", Repl);
             return r;
         }
 
-        String Repl(Match M) {
+        static string Repl(Match M) {
             var c = M.Groups["c"].Value;
             var e = M.Groups["e"].Value;
             var b = M.Groups["b"].Value;
@@ -324,19 +375,23 @@ namespace kenjiuno.LEML {
     }
 
     /// <summary>
-    /// Horizontal key-value pairs
+    /// Field body key-value pair values parser
     /// </summary>
-    class HorzKeyValue {
+    /// <remarks>
+    /// key = value
+    /// <list type="bullet">
+    /// <item>&quot;&quot; = &quot;text/plain&quot;</item>
+    /// <item>&quot;charset&quot; = &quot;utf-8&quot;</item>
+    /// </list>
+    /// </remarks>
+    public static class FieldBodyParser {
         /// <summary>
-        /// key=value
+        /// Parse field body
         /// </summary>
-        /// <remarks>
-        /// - ""="text/plain"
-        /// - "charset"="utf-8"
-        /// </remarks>
-        public List<Tuple<string, string>> pairs = new List<Tuple<string, string>>();
-
-        public HorzKeyValue(String s) {
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static List<KeyValuePair<string, string>> Parse(String s) {
+            List<KeyValuePair<string, string>> pairs = new List<KeyValuePair<string, string>>();
             for (int x = 0, cx = s.Length; x < cx;) {
                 while (x < cx && char.IsWhiteSpace(s[x])) {
                     x++;
@@ -359,7 +414,7 @@ namespace kenjiuno.LEML {
                     }
                 }
                 if (!isPair) {
-                    pairs.Add(new Tuple<string, string>("", key));
+                    pairs.Add(new KeyValuePair<string, string>("", key));
                     continue;
                 }
                 while (x < cx && char.IsWhiteSpace(s[x])) {
@@ -392,9 +447,10 @@ namespace kenjiuno.LEML {
                             }
                         }
                     }
-                    pairs.Add(new Tuple<string, string>(key, value));
+                    pairs.Add(new KeyValuePair<string, string>(key, value));
                 }
             }
+            return pairs;
         }
     }
 
@@ -438,7 +494,7 @@ namespace kenjiuno.LEML {
     /// <summary>
     /// EdMax MBOX file Reader
     /// </summary>
-    class EdMaxMboxReader {
+    public class EdMaxMboxReader {
         static readonly Encoding raw = Encoding.GetEncoding("latin1");
         static readonly Encoding jis = Encoding.GetEncoding("iso-2022-jp");
         static readonly Encoding sjis = Encoding.GetEncoding(932);
@@ -451,21 +507,30 @@ namespace kenjiuno.LEML {
         /// <returns>mails</returns>
         public IEnumerable<Mail> LoadFrom(string filePath) {
             using (StreamReader reader = new StreamReader(filePath, raw)) {
-                String row;
-                StringBuilder b = new StringBuilder();
-                int z = 0;
-                while (null != (row = reader.ReadLine())) {
-                    if (row == ".") {
-                        yield return Convert(new Mail { filePath = filePath, uuid = filePath + "/" + z, rawBody = b.ToString() });
-                        z++;
-                        b.Length = 0;
-                    }
-                    else {
-                        b.Append(row + "\n");
-                    }
-                }
-                yield return Convert(new Mail { filePath = filePath, uuid = filePath + "/" + z, rawBody = b.ToString() });
+                return LoadFrom(reader, filePath);
             }
+        }
+
+        /// <summary>
+        /// Load EdMax MBOX string reader
+        /// </summary>
+        /// <param name="reader">reader</param>
+        /// <returns>mails</returns>
+        public IEnumerable<Mail> LoadFrom(TextReader reader, string referenceFilePath) {
+            String row;
+            StringBuilder b = new StringBuilder();
+            int z = 0;
+            while (null != (row = reader.ReadLine())) {
+                if (row == ".") {
+                    yield return Convert(new Mail { filePath = referenceFilePath, uuid = referenceFilePath + "/" + z, rawBody = b.ToString() });
+                    z++;
+                    b.Length = 0;
+                }
+                else {
+                    b.Append(row + "\n");
+                }
+            }
+            yield return Convert(new Mail { filePath = referenceFilePath, uuid = referenceFilePath + "/" + z, rawBody = b.ToString() });
         }
 
         private Mail Convert(Mail entity) {
@@ -495,7 +560,7 @@ namespace kenjiuno.LEML {
     /// <summary>
     /// UNIX MBOX file decoder
     /// </summary>
-    public class UnixMboxReader {
+    public static class UnixMboxReader {
         /// <summary>
         /// Load mails from UNIX MBOX file
         /// </summary>
@@ -504,19 +569,28 @@ namespace kenjiuno.LEML {
         public static IEnumerable<Mail> LoadFrom(string filePath) {
             var raw = Encoding.GetEncoding("latin1");
             using (StreamReader reader = new StreamReader(filePath, raw)) {
-                String row;
-                StringBuilder b = new StringBuilder();
-                while (null != (row = reader.ReadLine())) {
-                    if (row == ".") {
-                        yield return new Mail { filePath = filePath, rawBody = b.ToString() };
-                        b.Length = 0;
-                    }
-                    else {
-                        b.Append(row + "\n");
-                    }
-                }
-                yield return new Mail { filePath = filePath, rawBody = b.ToString() };
+                return LoadFrom(reader, filePath);
             }
+        }
+
+        /// <summary>
+        /// Load mails from UNIX MBOX string reader
+        /// </summary>
+        /// <param name="reader">string reader</param>
+        /// <returns>mails</returns>
+        public static IEnumerable<Mail> LoadFrom(TextReader reader, string referenceFilePath) {
+            String row;
+            StringBuilder b = new StringBuilder();
+            while (null != (row = reader.ReadLine())) {
+                if (row == ".") {
+                    yield return new Mail { filePath = referenceFilePath, rawBody = b.ToString() };
+                    b.Length = 0;
+                }
+                else {
+                    b.Append(row + "\n");
+                }
+            }
+            yield return new Mail { filePath = referenceFilePath, rawBody = b.ToString() };
         }
     }
 }
