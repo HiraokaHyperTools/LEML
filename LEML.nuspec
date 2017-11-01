@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>kenjiuno</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/HiraokaHyperTools/LEML</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>N/A</releaseNotes>
+    <copyright>Copyright 2017 HIRAOKA HYPER TOOLS, Inc.</copyright>
+    <tags>Light EML RFC822 file reader parser</tags>
+  </metadata>
+</package>
