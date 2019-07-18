@@ -598,7 +598,7 @@ namespace kenjiuno.LEML
     /// <summary>
     /// EdMax MBOX file Reader
     /// </summary>
-    public class EdMaxMboxReader
+    public class EdMaxEnterDotEnterReader
     {
         static readonly Encoding raw = Encoding.GetEncoding("latin1");
         static readonly Encoding jis = Encoding.GetEncoding("iso-2022-jp");
@@ -619,9 +619,10 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// Load EdMax MBOX string reader
+        /// Load EdMax `(Enter).(Enter)` format string reader
         /// </summary>
         /// <param name="reader">reader</param>
+        /// <param name="referenceFilePath">set this to filePath for future reference</param>
         /// <returns>mails</returns>
         public IEnumerable<Mail> LoadFrom(TextReader reader, string referenceFilePath)
         {
@@ -701,19 +702,35 @@ namespace kenjiuno.LEML
         {
             String row;
             StringBuilder b = new StringBuilder();
+            bool any = false;
+            bool started = false;
             while (null != (row = reader.ReadLine()))
             {
-                if (row == ".")
+                if (row.StartsWith("From "))
                 {
-                    yield return new Mail { filePath = referenceFilePath, rawBody = b.ToString() };
+                    if (any && started)
+                    {
+                        yield return new Mail { filePath = referenceFilePath, rawBody = b.ToString() };
+                        any = false;
+                    }
                     b.Length = 0;
+                    started = true;
+                }
+                else if (row.StartsWith(">") && row.TrimStart('>').StartsWith("From"))
+                {
+                    b.Append(row.Substring(1) + "\n");
+                    any = true;
                 }
                 else
                 {
                     b.Append(row + "\n");
+                    any = true;
                 }
             }
-            yield return new Mail { filePath = referenceFilePath, rawBody = b.ToString() };
+            if (any)
+            {
+                yield return new Mail { filePath = referenceFilePath, rawBody = b.ToString() };
+            }
         }
     }
 }
