@@ -10,7 +10,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>N/A</releaseNotes>
-    <copyright>Copyright 2017 HIRAOKA HYPER TOOLS, Inc.</copyright>
-    <tags>Light EML RFC822 file reader parser</tags>
+    <copyright>$copyright$</copyright>
+    <tags>RFC822 EML Parser Reader</tags>
+    <language>en-US</language>
+    <repository type="git" url="https://github.com/HiraokaHyperTools/LEML.git" />
+    <license type="expression">BSD-2-Clause</license>
   </metadata>
 </package>
