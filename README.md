@@ -1,5 +1,7 @@
 # LEML
 
+[![Nuget](https://img.shields.io/nuget/v/LEML.svg)](https://www.nuget.org/packages/LEML/)
+
 Light EML file parser.
 
 Sample C#
