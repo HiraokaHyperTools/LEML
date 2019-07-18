@@ -6,12 +6,12 @@ using System.Linq;
 namespace LEMLTest
 {
     [TestFixture]
-    public class TestEdMaxEnterDotEnterReader
+    public class TestEdMaxEnterDotEnterFormatReader
     {
         [Test]
         public void Splitter()
         {
-            var reader = new EdMaxEnterDotEnterReader();
+            var reader = new EdMaxEnterDotEnterFormatReader();
             {
                 var body = ""
                     + "From: test@example.com" + "\r\n"

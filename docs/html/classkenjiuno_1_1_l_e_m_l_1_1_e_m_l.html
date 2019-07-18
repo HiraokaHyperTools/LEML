@@ -22,6 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">LEML
+   &#160;<span id="projectnumber">0.3</span>
    </div>
   </td>
  </tr>
@@ -81,7 +82,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af85633eda3c0ccb9e90431359381f956"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#af85633eda3c0ccb9e90431359381f956">GetValue</a> (string key)</td></tr>
-<tr class="memdesc:af85633eda3c0ccb9e90431359381f956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain last header value by key name  <a href="#af85633eda3c0ccb9e90431359381f956">More...</a><br /></td></tr>
+<tr class="memdesc:af85633eda3c0ccb9e90431359381f956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search last header field value by name  <a href="#af85633eda3c0ccb9e90431359381f956">More...</a><br /></td></tr>
 <tr class="separator:af85633eda3c0ccb9e90431359381f956"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43b53eecc51d6138fec5e0193871bad7"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a43b53eecc51d6138fec5e0193871bad7">ToString</a> ()</td></tr>
 <tr class="memdesc:a43b53eecc51d6138fec5e0193871bad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">MIME type  <a href="#a43b53eecc51d6138fec5e0193871bad7">More...</a><br /></td></tr>
@@ -93,19 +94,19 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a3a79b90f56b1bbdeef3bc21ef92d4c76"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html">EML</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a3a79b90f56b1bbdeef3bc21ef92d4c76">multiparts</a> = new List&lt;<a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html">EML</a>&gt;()</td></tr>
-<tr class="memdesc:a3a79b90f56b1bbdeef3bc21ef92d4c76"><td class="mdescLeft">&#160;</td><td class="mdescRight">multipart entites  <a href="#a3a79b90f56b1bbdeef3bc21ef92d4c76">More...</a><br /></td></tr>
+<tr class="memdesc:a3a79b90f56b1bbdeef3bc21ef92d4c76"><td class="mdescLeft">&#160;</td><td class="mdescRight">The decoded multipart entities  <a href="#a3a79b90f56b1bbdeef3bc21ef92d4c76">More...</a><br /></td></tr>
 <tr class="separator:a3a79b90f56b1bbdeef3bc21ef92d4c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a76e9c86193ac064b868004f1ae31a424"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_mail.html">Mail</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a76e9c86193ac064b868004f1ae31a424">entity</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a76e9c86193ac064b868004f1ae31a424"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_mail.html" title="Mail or multipart entity ">Mail</a> or multipart entity  <a href="#a76e9c86193ac064b868004f1ae31a424">More...</a><br /></td></tr>
+<tr class="memdesc:a76e9c86193ac064b868004f1ae31a424"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parsed <code><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_mail.html" title="Mail or multipart entity ">Mail</a></code> entity  <a href="#a76e9c86193ac064b868004f1ae31a424">More...</a><br /></td></tr>
 <tr class="separator:a76e9c86193ac064b868004f1ae31a424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbccc1a4877ef685e5a9692f511a8b39"><td class="memItemLeft" align="right" valign="top">List&lt; KeyValuePair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#acbccc1a4877ef685e5a9692f511a8b39">allHeaders</a> = new List&lt;KeyValuePair&lt;string, string&gt;&gt;()<code> [get]</code></td></tr>
 <tr class="memdesc:acbccc1a4877ef685e5a9692f511a8b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">All headers that allow same key names  <a href="#acbccc1a4877ef685e5a9692f511a8b39">More...</a><br /></td></tr>
 <tr class="separator:acbccc1a4877ef685e5a9692f511a8b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa22fd24998f12042f3560001740973d1"><td class="memItemLeft" align="right" valign="top">SortedDictionary&lt; string, string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#aa22fd24998f12042f3560001740973d1">dictHeaders</a> = new SortedDictionary&lt;string, string&gt;(StringComparer.InvariantCultureIgnoreCase)<code> [get]</code></td></tr>
-<tr class="memdesc:aa22fd24998f12042f3560001740973d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Some headers: last one captured by key name  <a href="#aa22fd24998f12042f3560001740973d1">More...</a><br /></td></tr>
+<tr class="memdesc:aa22fd24998f12042f3560001740973d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">All headers of last occurence associated with its header field name  <a href="#aa22fd24998f12042f3560001740973d1">More...</a><br /></td></tr>
 <tr class="separator:aa22fd24998f12042f3560001740973d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9c7be05b7f7e5a323c44243dd9ac0b3"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#ac9c7be05b7f7e5a323c44243dd9ac0b3">fullBody</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ac9c7be05b7f7e5a323c44243dd9ac0b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">body includes multipart entities (latin1, LF)  <a href="#ac9c7be05b7f7e5a323c44243dd9ac0b3">More...</a><br /></td></tr>
@@ -114,43 +115,43 @@ Properties</h2></td></tr>
 <tr class="memdesc:a738878611a5730b0207ca124ca820ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output (Main contents, latin1, LF)  <a href="#a738878611a5730b0207ca124ca820ca4">More...</a><br /></td></tr>
 <tr class="separator:a738878611a5730b0207ca124ca820ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad97e64aaa536a22142a329db076e9a73"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#ad97e64aaa536a22142a329db076e9a73">ContentType</a><code> [get]</code></td></tr>
-<tr class="memdesc:ad97e64aaa536a22142a329db076e9a73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Content-Type, or string.Empty  <a href="#ad97e64aaa536a22142a329db076e9a73">More...</a><br /></td></tr>
+<tr class="memdesc:ad97e64aaa536a22142a329db076e9a73"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>Content-Type</code> media type, otherwise empty  <a href="#ad97e64aaa536a22142a329db076e9a73">More...</a><br /></td></tr>
 <tr class="separator:ad97e64aaa536a22142a329db076e9a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab892952f113216374925f2e8cfe37e2e"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#ab892952f113216374925f2e8cfe37e2e">ContentDisposition</a><code> [get]</code></td></tr>
-<tr class="memdesc:ab892952f113216374925f2e8cfe37e2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Content-Disposition, or string.Empty  <a href="#ab892952f113216374925f2e8cfe37e2e">More...</a><br /></td></tr>
+<tr class="memdesc:ab892952f113216374925f2e8cfe37e2e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>Content-Disposition</code> type, otherwise empty  <a href="#ab892952f113216374925f2e8cfe37e2e">More...</a><br /></td></tr>
 <tr class="separator:ab892952f113216374925f2e8cfe37e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81cc7d069011d57aa4c4650559c5a3e5"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a81cc7d069011d57aa4c4650559c5a3e5">FileName</a><code> [get]</code></td></tr>
-<tr class="memdesc:a81cc7d069011d57aa4c4650559c5a3e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Content-Disposition.FileName, or Content-Type.Name, or string.Empty  <a href="#a81cc7d069011d57aa4c4650559c5a3e5">More...</a><br /></td></tr>
+<tr class="memdesc:a81cc7d069011d57aa4c4650559c5a3e5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>Content-Disposition</code>.<code>FileName</code>, or <code>Content-Type</code>.<code>Name</code>, otherwise empty  <a href="#a81cc7d069011d57aa4c4650559c5a3e5">More...</a><br /></td></tr>
 <tr class="separator:a81cc7d069011d57aa4c4650559c5a3e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96642a5a9adc0b1fc79e8cdd195849f6"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a96642a5a9adc0b1fc79e8cdd195849f6">From</a><code> [get]</code></td></tr>
-<tr class="memdesc:a96642a5a9adc0b1fc79e8cdd195849f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">From, or string.Empty  <a href="#a96642a5a9adc0b1fc79e8cdd195849f6">More...</a><br /></td></tr>
+<tr class="memdesc:a96642a5a9adc0b1fc79e8cdd195849f6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>From</code> header field body, otherwise empty.  <a href="#a96642a5a9adc0b1fc79e8cdd195849f6">More...</a><br /></td></tr>
 <tr class="separator:a96642a5a9adc0b1fc79e8cdd195849f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c4ec2356133198712ede62ca234cf9f"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a0c4ec2356133198712ede62ca234cf9f">To</a><code> [get]</code></td></tr>
-<tr class="memdesc:a0c4ec2356133198712ede62ca234cf9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">To, or string.Empty  <a href="#a0c4ec2356133198712ede62ca234cf9f">More...</a><br /></td></tr>
+<tr class="memdesc:a0c4ec2356133198712ede62ca234cf9f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>To</code> header field body, otherwise empty.  <a href="#a0c4ec2356133198712ede62ca234cf9f">More...</a><br /></td></tr>
 <tr class="separator:a0c4ec2356133198712ede62ca234cf9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc648c447d999f8fcdf8bfe1c331aa9b"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#adc648c447d999f8fcdf8bfe1c331aa9b">Subject</a><code> [get]</code></td></tr>
-<tr class="memdesc:adc648c447d999f8fcdf8bfe1c331aa9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subject, or string.Empty  <a href="#adc648c447d999f8fcdf8bfe1c331aa9b">More...</a><br /></td></tr>
+<tr class="memdesc:adc648c447d999f8fcdf8bfe1c331aa9b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>Subject</code> header field body, otherwise empty.  <a href="#adc648c447d999f8fcdf8bfe1c331aa9b">More...</a><br /></td></tr>
 <tr class="separator:adc648c447d999f8fcdf8bfe1c331aa9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a727bad4def013c42d0923d45cf19cb23"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a727bad4def013c42d0923d45cf19cb23">PerceivedType</a><code> [get]</code></td></tr>
-<tr class="memdesc:a727bad4def013c42d0923d45cf19cb23"><td class="mdescLeft">&#160;</td><td class="mdescRight">PerceivedType of ContentType, or string.Empty  <a href="#a727bad4def013c42d0923d45cf19cb23">More...</a><br /></td></tr>
+<tr class="memdesc:a727bad4def013c42d0923d45cf19cb23"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <code>type</code> part of <code>ContentType</code>, otherwise empty.  <a href="#a727bad4def013c42d0923d45cf19cb23">More...</a><br /></td></tr>
 <tr class="separator:a727bad4def013c42d0923d45cf19cb23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d076cd2b334d90184ba8251d4cbdaa8"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a2d076cd2b334d90184ba8251d4cbdaa8">Boundary</a><code> [get]</code></td></tr>
-<tr class="memdesc:a2d076cd2b334d90184ba8251d4cbdaa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">boundary in Content-Type, or string.Empty  <a href="#a2d076cd2b334d90184ba8251d4cbdaa8">More...</a><br /></td></tr>
+<tr class="memdesc:a2d076cd2b334d90184ba8251d4cbdaa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">boundary in <code>Content-Type</code>, otherwise empty.  <a href="#a2d076cd2b334d90184ba8251d4cbdaa8">More...</a><br /></td></tr>
 <tr class="separator:a2d076cd2b334d90184ba8251d4cbdaa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae99fe8db90e23817f19181adfef4c526"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#ae99fe8db90e23817f19181adfef4c526">CharacterSet</a><code> [get]</code></td></tr>
-<tr class="memdesc:ae99fe8db90e23817f19181adfef4c526"><td class="mdescLeft">&#160;</td><td class="mdescRight">charset in Content-Type, or string.Empty  <a href="#ae99fe8db90e23817f19181adfef4c526">More...</a><br /></td></tr>
+<tr class="memdesc:ae99fe8db90e23817f19181adfef4c526"><td class="mdescLeft">&#160;</td><td class="mdescRight">charset parameter value in <code>Content-Type</code>, otherwise empty.  <a href="#ae99fe8db90e23817f19181adfef4c526">More...</a><br /></td></tr>
 <tr class="separator:ae99fe8db90e23817f19181adfef4c526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c27a9b91b2829234c745e4832372ac0"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a7c27a9b91b2829234c745e4832372ac0">ContentTransferEncoding</a><code> [get]</code></td></tr>
-<tr class="memdesc:a7c27a9b91b2829234c745e4832372ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Content-Transfer-Encoding or string.Empty  <a href="#a7c27a9b91b2829234c745e4832372ac0">More...</a><br /></td></tr>
+<tr class="memdesc:a7c27a9b91b2829234c745e4832372ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>Content-Transfer-Encoding</code> header field body, otherwise empty  <a href="#a7c27a9b91b2829234c745e4832372ac0">More...</a><br /></td></tr>
 <tr class="separator:a7c27a9b91b2829234c745e4832372ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6560c673dc7e4cd49f443a46a0903d87"><td class="memItemLeft" align="right" valign="top">byte []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a6560c673dc7e4cd49f443a46a0903d87">RawContents</a><code> [get]</code></td></tr>
 <tr class="memdesc:a6560c673dc7e4cd49f443a46a0903d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main contents in byte array  <a href="#a6560c673dc7e4cd49f443a46a0903d87">More...</a><br /></td></tr>
 <tr class="separator:a6560c673dc7e4cd49f443a46a0903d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58a257adb93a2fed8f98d91961d639d9"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a58a257adb93a2fed8f98d91961d639d9">MessageBody</a><code> [get]</code></td></tr>
-<tr class="memdesc:a58a257adb93a2fed8f98d91961d639d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main contents text body in readable Unicode (decodes ContentTransferEncoding)  <a href="#a58a257adb93a2fed8f98d91961d639d9">More...</a><br /></td></tr>
+<tr class="memdesc:a58a257adb93a2fed8f98d91961d639d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main contents text body in readable Unicode  <a href="#a58a257adb93a2fed8f98d91961d639d9">More...</a><br /></td></tr>
 <tr class="separator:a58a257adb93a2fed8f98d91961d639d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9af57c207590449c19b09f51758d50c2"><td class="memItemLeft" align="right" valign="top">DateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a9af57c207590449c19b09f51758d50c2">Date</a><code> [get]</code></td></tr>
-<tr class="memdesc:a9af57c207590449c19b09f51758d50c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date or string.Empty  <a href="#a9af57c207590449c19b09f51758d50c2">More...</a><br /></td></tr>
+<tr class="memdesc:a9af57c207590449c19b09f51758d50c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parsed <code>Date</code> header field body, otherwise null.  <a href="#a9af57c207590449c19b09f51758d50c2">More...</a><br /></td></tr>
 <tr class="separator:a9af57c207590449c19b09f51758d50c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -175,7 +176,7 @@ Properties</h2></td></tr>
 <p>Consturct from mail entity </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entity</td><td></td></tr>
+    <tr><td class="paramname">entity</td><td>mail entity</td></tr>
   </table>
   </dd>
 </dl>
@@ -199,7 +200,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Obtain last header value by key name </p>
+<p>Search last header field value by name </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td></td></tr>
@@ -243,7 +244,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>multipart entites </p>
+<p>The decoded multipart entities </p>
 
 </div>
 </div>
@@ -292,7 +293,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>boundary in Content-Type, or string.Empty </p>
+<p>boundary in <code>Content-Type</code>, otherwise empty. </p>
 
 </div>
 </div>
@@ -316,7 +317,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>charset in Content-Type, or string.Empty </p>
+<p>charset parameter value in <code>Content-Type</code>, otherwise empty. </p>
 
 </div>
 </div>
@@ -340,7 +341,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Content-Disposition, or string.Empty </p>
+<p><code>Content-Disposition</code> type, otherwise empty </p>
 
 </div>
 </div>
@@ -388,7 +389,11 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Content-Transfer-Encoding or string.Empty </p>
+<p><code>Content-Transfer-Encoding</code> header field body, otherwise empty </p>
+<ul>
+<li>empty</li>
+<li><code>base64</code> </li>
+</ul>
 
 </div>
 </div>
@@ -412,7 +417,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Content-Type, or string.Empty </p>
+<p><code>Content-Type</code> media type, otherwise empty </p>
 
 </div>
 </div>
@@ -436,7 +441,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Date or string.Empty </p>
+<p>Parsed <code>Date</code> header field body, otherwise null. </p>
 
 </div>
 </div>
@@ -460,7 +465,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Some headers: last one captured by key name </p>
+<p>All headers of last occurence associated with its header field name </p>
 
 </div>
 </div>
@@ -484,7 +489,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_mail.html" title="Mail or multipart entity ">Mail</a> or multipart entity </p>
+<p>The parsed <code><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_mail.html" title="Mail or multipart entity ">Mail</a></code> entity </p>
 
 </div>
 </div>
@@ -508,7 +513,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Content-Disposition.FileName, or Content-Type.Name, or string.Empty </p>
+<p><code>Content-Disposition</code>.<code>FileName</code>, or <code>Content-Type</code>.<code>Name</code>, otherwise empty </p>
 
 </div>
 </div>
@@ -532,7 +537,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>From, or string.Empty </p>
+<p><code>From</code> header field body, otherwise empty. </p>
 
 </div>
 </div>
@@ -580,7 +585,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Main contents text body in readable Unicode (decodes ContentTransferEncoding) </p>
+<p>Main contents text body in readable Unicode </p>
 
 </div>
 </div>
@@ -604,7 +609,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>PerceivedType of ContentType, or string.Empty </p>
+<p>The <code>type</code> part of <code>ContentType</code>, otherwise empty. </p>
 
 </div>
 </div>
@@ -652,7 +657,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Subject, or string.Empty </p>
+<p><code>Subject</code> header field body, otherwise empty. </p>
 
 </div>
 </div>
@@ -676,7 +681,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>To, or string.Empty </p>
+<p><code>To</code> header field body, otherwise empty. </p>
 
 </div>
 </div>

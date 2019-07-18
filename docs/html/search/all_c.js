@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['subject',['Subject',['../classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#adc648c447d999f8fcdf8bfe1c331aa9b',1,'kenjiuno::LEML::EML']]]
+  ['rawbody',['rawBody',['../classkenjiuno_1_1_l_e_m_l_1_1_mail.html#ace46f6102660e39d3f16e90f1eacebc5',1,'kenjiuno::LEML::Mail']]],
+  ['rawcontents',['RawContents',['../classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#a6560c673dc7e4cd49f443a46a0903d87',1,'kenjiuno::LEML::EML']]]
 ];

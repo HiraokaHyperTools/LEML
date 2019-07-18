@@ -13,7 +13,7 @@ namespace kenjiuno.LEML
     public class EML
     {
         /// <summary>
-        /// Mail or multipart entity
+        /// The parsed `Mail` entity
         /// </summary>
         public Mail entity { get; internal set; }
         /// <summary>
@@ -21,12 +21,12 @@ namespace kenjiuno.LEML
         /// </summary>
         public List<KeyValuePair<string, string>> allHeaders { get; } = new List<KeyValuePair<string, string>>();
         /// <summary>
-        /// Some headers: last one captured by key name
+        /// All headers of last occurence associated with its header field name
         /// </summary>
         public SortedDictionary<string, string> dictHeaders { get; } = new SortedDictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
         /// <summary>
-        /// Obtain last header value by key name
+        /// Search last header field value by name
         /// </summary>
         /// <param name="key"></param>
         /// <returns>text if found, otherwise null</returns>
@@ -60,14 +60,14 @@ namespace kenjiuno.LEML
         public String contents { get; set; }
 
         /// <summary>
-        /// multipart entites
+        /// The decoded multipart entities
         /// </summary>
         public List<EML> multiparts = new List<EML>();
 
         /// <summary>
         /// Consturct from mail entity
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">mail entity</param>
         public EML(Mail entity)
         {
             this.entity = entity;
@@ -164,7 +164,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// Content-Type, or string.Empty
+        /// `Content-Type` media type, otherwise empty
         /// </summary>
         public String ContentType
         {
@@ -182,7 +182,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// Content-Disposition, or string.Empty
+        /// `Content-Disposition` type, otherwise empty
         /// </summary>
         public String ContentDisposition
         {
@@ -200,7 +200,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// Content-Disposition.FileName, or Content-Type.Name, or string.Empty
+        /// `Content-Disposition`.`FileName`, or `Content-Type`.`Name`, otherwise empty
         /// </summary>
         public String FileName
         {
@@ -225,7 +225,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// From, or string.Empty
+        /// `From` header field body, otherwise empty.
         /// </summary>
         public String From
         {
@@ -236,7 +236,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// To, or string.Empty
+        /// `To` header field body, otherwise empty.
         /// </summary>
         public String To
         {
@@ -247,7 +247,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// Subject, or string.Empty
+        /// `Subject` header field body, otherwise empty.
         /// </summary>
         public String Subject
         {
@@ -258,7 +258,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// PerceivedType of ContentType, or string.Empty
+        /// The `type` part of `ContentType`, otherwise empty.
         /// </summary>
         public String PerceivedType
         {
@@ -270,7 +270,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// boundary in Content-Type, or string.Empty
+        /// boundary in `Content-Type`, otherwise empty.
         /// </summary>
         public String Boundary
         {
@@ -288,7 +288,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// charset in Content-Type, or string.Empty
+        /// charset parameter value in `Content-Type`, otherwise empty.
         /// </summary>
         public String CharacterSet
         {
@@ -306,7 +306,10 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// Content-Transfer-Encoding or string.Empty
+        /// `Content-Transfer-Encoding` header field body, otherwise empty
+        /// 
+        /// - empty
+        /// - `base64`
         /// </summary>
         public String ContentTransferEncoding
         {
@@ -335,7 +338,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// Main contents text body in readable Unicode (decodes ContentTransferEncoding)
+        /// Main contents text body in readable Unicode
         /// </summary>
         public String MessageBody
         {
@@ -355,7 +358,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// Date or string.Empty
+        /// Parsed `Date` header field body, otherwise null.
         /// </summary>
         public DateTime? Date
         {
@@ -379,7 +382,7 @@ namespace kenjiuno.LEML
     public static class UtilMimeBody
     {
         /// <summary>
-        /// Get bytes from EML
+        /// Encode `EML.contents` to message body bytes according to `EML.ContentTransferEncoding`
         /// </summary>
         /// <param name="eml"></param>
         /// <returns>byte array</returns>
@@ -397,15 +400,60 @@ namespace kenjiuno.LEML
     /// <summary>
     /// RFC 2047 encoded-word decoder
     /// </summary>
+    /// <example>
+    /// - `abc` → `abc`
+    /// - `=?iso-8859-1?q?this=20is=20some=20text?=` → `this is some text`
+    /// - `=?ISO-8859-1?B?SWYgeW91IGNhbiByZWFkIHRoaXMgeW8=?=
+    ///   =?ISO-8859-2?B?dSB1bmRlcnN0YW5kIHRoZSBleGFtcGxlLg==?=` 
+    ///   → `If you can read this you understand the example.`
+    /// </example>
     public static class UtilDecodeRfc2047
     {
         public static string Decode(String text)
         {
-            String r = Regex.Replace(text, "=\\?(?<c>[^\\?]+)\\?(?<e>[BbQq])\\?(?<b>[^\\?]+)\\?=", Repl);
-            return r;
+            var result = "";
+
+            var lastIndex = 0;
+
+            var hadEncodedWord = false;
+
+            foreach (Match match in Regex.Matches(text, "=\\?(?<c>[^\\?]+)\\?(?<e>[BbQq])\\?(?<b>[^\\?]+)\\?="))
+            {
+                var leading = text.Substring(lastIndex, match.Index - lastIndex);
+
+                if (hadEncodedWord && string.IsNullOrWhiteSpace(leading))
+                {
+                    // skip
+
+                    /*
+                     * https://www.ietf.org/rfc/rfc2047.txt
+                     * 
+                     * from 6.2
+                     * 
+                     * When displaying a particular header field that contains multiple
+                     * 'encoded-word's, any 'linear-white-space' that separates a pair of
+                     * adjacent 'encoded-word's is ignored.
+                     * 
+                     */
+                }
+                else
+                {
+                    result += leading;
+                }
+
+                result += DecodeEncodedWord(match);
+
+                lastIndex = match.Index + match.Length;
+
+                hadEncodedWord = true;
+            }
+
+            result += text.Substring(lastIndex);
+
+            return result;
         }
 
-        static string Repl(Match M)
+        static string DecodeEncodedWord(Match M)
         {
             var c = M.Groups["c"].Value;
             var e = M.Groups["e"].Value;
@@ -460,25 +508,24 @@ namespace kenjiuno.LEML
     /// Field body key-value pair values parser
     /// </summary>
     /// <remarks>
-    /// key = value
-    /// <list type="bullet">
-    /// <item>&quot;&quot; = &quot;text/plain&quot;</item>
-    /// <item>&quot;charset&quot; = &quot;utf-8&quot;</item>
-    /// </list>
+    /// For example:
+    /// 
+    /// - `text/plain` → `{"": "text/plain"}`
+    /// - `text/plain; charset=utf-8` → `{"": "text/plain", "charset": "utf-8"}`
     /// </remarks>
     public static class FieldBodyParser
     {
         /// <summary>
         /// Parse field body
         /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static List<KeyValuePair<string, string>> Parse(String s)
+        /// <param name="body"></param>
+        /// <returns>pairs</returns>
+        public static List<KeyValuePair<string, string>> Parse(String body)
         {
             List<KeyValuePair<string, string>> pairs = new List<KeyValuePair<string, string>>();
-            for (int x = 0, cx = s.Length; x < cx;)
+            for (int x = 0, cx = body.Length; x < cx;)
             {
-                while (x < cx && char.IsWhiteSpace(s[x]))
+                while (x < cx && char.IsWhiteSpace(body[x]))
                 {
                     x++;
                 }
@@ -486,12 +533,12 @@ namespace kenjiuno.LEML
                 bool isPair = false;
                 while (x < cx)
                 {
-                    if (s[x] == ';')
+                    if (body[x] == ';')
                     {
                         x++;
                         break;
                     }
-                    else if (s[x] == '=')
+                    else if (body[x] == '=')
                     {
                         x++;
                         isPair = true;
@@ -499,7 +546,7 @@ namespace kenjiuno.LEML
                     }
                     else
                     {
-                        key += s[x];
+                        key += body[x];
                         x++;
                     }
                 }
@@ -508,26 +555,26 @@ namespace kenjiuno.LEML
                     pairs.Add(new KeyValuePair<string, string>("", key));
                     continue;
                 }
-                while (x < cx && char.IsWhiteSpace(s[x]))
+                while (x < cx && char.IsWhiteSpace(body[x]))
                 {
                     x++;
                 }
                 if (x < cx)
                 {
                     String value = "";
-                    if (s[x] == '"')
+                    if (body[x] == '"')
                     {
                         x++;
                         while (x < cx)
                         {
-                            if (s[x] == '"')
+                            if (body[x] == '"')
                             {
                                 x++;
                                 break;
                             }
                             else
                             {
-                                value += s[x];
+                                value += body[x];
                                 x++;
                             }
                         }
@@ -536,14 +583,14 @@ namespace kenjiuno.LEML
                     {
                         while (x < cx)
                         {
-                            if (s[x] == ';')
+                            if (body[x] == ';')
                             {
                                 x++;
                                 break;
                             }
                             else
                             {
-                                value += s[x];
+                                value += body[x];
                                 x++;
                             }
                         }
@@ -596,9 +643,9 @@ namespace kenjiuno.LEML
     }
 
     /// <summary>
-    /// EdMax MBOX file Reader
+    /// EdMax `(Enter).(Enter)` exported mails format reader.
     /// </summary>
-    public class EdMaxEnterDotEnterReader
+    public class EdMaxEnterDotEnterFormatReader
     {
         static readonly Encoding raw = Encoding.GetEncoding("latin1");
         static readonly Encoding jis = Encoding.GetEncoding("iso-2022-jp");
@@ -606,7 +653,7 @@ namespace kenjiuno.LEML
         static readonly Encoding eucjp = Encoding.GetEncoding("euc-jp");
 
         /// <summary>
-        /// Load EdMax MBOX file
+        /// Load from file
         /// </summary>
         /// <param name="filePath">file path</param>
         /// <returns>mails</returns>
@@ -619,7 +666,7 @@ namespace kenjiuno.LEML
         }
 
         /// <summary>
-        /// Load EdMax `(Enter).(Enter)` format string reader
+        /// Load from string reader
         /// </summary>
         /// <param name="reader">reader</param>
         /// <param name="referenceFilePath">set this to filePath for future reference</param>
@@ -675,7 +722,8 @@ namespace kenjiuno.LEML
     }
 
     /// <summary>
-    /// UNIX MBOX file decoder
+    /// UNIX MBOX file decoder.
+    /// Splitting mails by `"From "` line.
     /// </summary>
     public static class UnixMboxReader
     {

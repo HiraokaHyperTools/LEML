@@ -44,10 +44,12 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestEdMaxEnterDotEnterReader.cs" />
+    <Compile Include="TestEdMaxEnterDotEnterFormatReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestEML.cs" />
+    <Compile Include="TestFieldBodyParser.cs" />
     <Compile Include="TestUnixMboxReader.cs" />
+    <Compile Include="TestUtilDecodeRfc2047.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LEML.csproj">
