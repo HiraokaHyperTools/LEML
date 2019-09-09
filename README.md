@@ -1,6 +1,6 @@
 # LEML
 
-[![Nuget](https://img.shields.io/nuget/v/LEML.svg)](https://www.nuget.org/packages/LEML/)
+[![Nuget](https://img.shields.io/nuget/v/LEML.svg)](https://www.nuget.org/packages/LEML/) [![Build Status](https://dev.azure.com/HiraokaHyperTools/LEML/_apis/build/status/HiraokaHyperTools.LEML?branchName=master)](https://dev.azure.com/HiraokaHyperTools/LEML/_build/latest?definitionId=5&branchName=master)
 
 Light EML file parser.
 
