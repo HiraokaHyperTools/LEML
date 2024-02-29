@@ -1,11 +1,11 @@
 ﻿using kenjiuno.LEML;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.IO;
 using System.Linq;
 
-namespace LEMLTest
+namespace LEML.Tests
 {
-    [TestFixture]
     public class TestUnixMboxReader
     {
         [Test]

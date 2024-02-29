@@ -1,11 +1,11 @@
 ﻿using kenjiuno.LEML;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.IO;
 using System.Linq;
 
-namespace LEMLTest
+namespace LEML.Tests
 {
-    [TestFixture]
     public class TestEML
     {
         [Test]
@@ -13,7 +13,7 @@ namespace LEMLTest
         {
             var body = "From: test@example.com";
             var mail = new EML(UnixMboxReader.LoadFrom(new StringReader(body), "test.eml").Single());
-            Assert.AreEqual(mail.From, "test@example.com");
+            ClassicAssert.AreEqual(mail.From, "test@example.com");
         }
 
         [Test]
@@ -24,7 +24,7 @@ namespace LEMLTest
                 + "This is message body." + "\r\n"
                 ;
             var mail = new EML(UnixMboxReader.LoadFrom(new StringReader(body), "test.eml").Single());
-            Assert.AreEqual("This is message body.\n", mail.MessageBody);
+            ClassicAssert.AreEqual("This is message body.\n", mail.MessageBody);
         }
     }
 }

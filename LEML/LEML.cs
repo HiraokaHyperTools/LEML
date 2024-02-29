@@ -487,8 +487,8 @@ namespace kenjiuno.LEML
                 {
                     if (x + 2 < cx)
                     {
-                        int a = hex.IndexOf(s[x + 1]);
-                        int b = hex.IndexOf(s[x + 2]);
+                        int a = hex.IndexOf(char.ToUpperInvariant(s[x + 1]));
+                        int b = hex.IndexOf(char.ToUpperInvariant(s[x + 2]));
                         if (a >= 0 && b >= 0)
                         {
                             os.WriteByte((byte)((a << 4) | b));

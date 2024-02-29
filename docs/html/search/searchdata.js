@@ -1,12 +1,11 @@
 var indexSectionsWithContent =
 {
-  0: "abcdefgklmnprstu",
-  1: "efmtu",
-  2: "kl",
+  0: "abcdefgklmprstu",
+  1: "efmu",
+  2: "k",
   3: "efglpt",
   4: "m",
-  5: "abcdefmprstu",
-  6: "ln"
+  5: "abcdefmprstu"
 };
 
 var indexSectionNames =
@@ -16,8 +15,7 @@ var indexSectionNames =
   2: "namespaces",
   3: "functions",
   4: "variables",
-  5: "properties",
-  6: "pages"
+  5: "properties"
 };
 
 var indexSectionLabels =
@@ -27,7 +25,6 @@ var indexSectionLabels =
   2: "Namespaces",
   3: "Functions",
   4: "Variables",
-  5: "Properties",
-  6: "Pages"
+  5: "Properties"
 };
 

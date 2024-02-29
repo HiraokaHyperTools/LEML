@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 14 for Windows Desktop
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEML", "LEML.csproj", "{2038ACFE-5419-478C-8BD8-84086C3A39F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEML", "LEML\LEML.csproj", "{2038ACFE-5419-478C-8BD8-84086C3A39F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEMLTest", "LEMLTest\LEMLTest.csproj", "{0FC29AEC-FE83-4DD1-9D90-29E3CAF1A68C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEML.Tests", "LEML.Tests\LEML.Tests.csproj", "{0FC29AEC-FE83-4DD1-9D90-29E3CAF1A68C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

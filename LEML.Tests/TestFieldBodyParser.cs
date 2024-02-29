@@ -1,13 +1,13 @@
 ﻿using kenjiuno.LEML;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LEMLTest
+namespace LEML.Tests
 {
-    [TestFixture]
     public class TestFieldBodyParser
     {
         [Test]

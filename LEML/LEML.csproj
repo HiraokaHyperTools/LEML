@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net40;netstandard2.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Version>0.4</Version>
+
+    <ProjectGuid>2038acfe-5419-478c-8bd8-84086c3a39f8</ProjectGuid>
+    <PackageId>LEML</PackageId>
+    <Authors>kenjiuno</Authors>
+    <Company>HIRAOKA HYPERS TOOLS, Inc.</Company>
+    <Description>Light EML RFC822 file reader parser</Description>
+    <Copyright>Copyright (c) 2017, 2024</Copyright>
+    <PackageTags>RFC822 EML Parser Reader</PackageTags>
+    <!-- https://spdx.org/licenses/ -->
+    <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/HiraokaHyperTools/LEML</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/HiraokaHyperTools/LEML.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+
+    <None Include="../README.md" Pack="true" PackagePath="\"/>
+
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net40" Version="1.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
