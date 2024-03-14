@@ -3,7 +3,7 @@
     <TargetFrameworks>net40;netstandard2.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <Version>0.6</Version>
+    <Version>0.7</Version>
 
     <ProjectGuid>2038acfe-5419-478c-8bd8-84086c3a39f8</ProjectGuid>
     <PackageId>LEML</PackageId>

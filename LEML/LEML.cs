@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -217,7 +218,7 @@ namespace kenjiuno.LEML
                 {
                     if (pair.Key.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        return pair.Value;
+                        return UtilDecodeRfc2047.Decode(pair.Value);
                     }
                 }
                 return "";
@@ -800,7 +801,7 @@ namespace kenjiuno.LEML
     /// </summary>
     public class FieldBodyCombine
     {
-        private static readonly Regex _isMultiple = new Regex(@"^(?<name>[^\*]+)\*(?<index>\d+)$");
+        private static readonly Regex _isMultiple = new Regex(@"^(?<name>[^\*]+)\*(?<index>\d+)(?<rfc5987>\*)?$");
 
         /// <summary>
         /// Combine splitted field body
@@ -810,6 +811,7 @@ namespace kenjiuno.LEML
         )
         {
             var pairs = new List<KeyValuePair<string, string>>();
+            var extendedPairs = new List<KeyValuePair<string, string>>();
 
             foreach (var sourcePair in sourcePairs)
             {
@@ -817,22 +819,24 @@ namespace kenjiuno.LEML
                 if (match.Success)
                 {
                     var newKey = match.Groups["name"].Value;
+                    var isRfc5987 = match.Groups["rfc5987"].Success;
+                    var thisPairs = isRfc5987 ? extendedPairs : pairs;
                     var y = 0;
-                    var cy = pairs.Count;
+                    var cy = thisPairs.Count;
                     for (; y < cy; y++)
                     {
-                        if (pairs[y].Key == newKey)
+                        if (thisPairs[y].Key == newKey)
                         {
-                            pairs[y] = new KeyValuePair<string, string>(
+                            thisPairs[y] = new KeyValuePair<string, string>(
                                 newKey,
-                                pairs[y].Value + sourcePair.Value
+                                thisPairs[y].Value + sourcePair.Value
                             );
                             break;
                         }
                     }
                     if (y == cy)
                     {
-                        pairs.Add(new KeyValuePair<string, string>(
+                        thisPairs.Add(new KeyValuePair<string, string>(
                             newKey,
                             sourcePair.Value
                         ));
@@ -844,7 +848,47 @@ namespace kenjiuno.LEML
                 }
             }
 
+            foreach (var pair in extendedPairs)
+            {
+                var triple = pair.Value.Split('\'');
+                if (triple.Length == 3)
+                {
+                    var encoding = triple[0];
+                    var body = triple[2];
+                    var bytes = ParseUrlEncoded(body);
+                    var text = Encoding.GetEncoding(encoding).GetString(bytes);
+                    pairs.Add(new KeyValuePair<string, string>(pair.Key, text));
+                }
+            }
+
             return pairs;
+        }
+
+        private static byte[] ParseUrlEncoded(string body)
+        {
+            var bytes = new List<byte>(body.Length);
+            for (var x = 0; x < body.Length;)
+            {
+                if (body[x] == '%')
+                {
+                    if (byte.TryParse(body.Substring(x + 1, 2), NumberStyles.HexNumber, null, out byte one))
+                    {
+                        bytes.Add(one);
+                        x += 3;
+                    }
+                    else
+                    {
+                        bytes.Add((byte)body[x]);
+                        x++;
+                    }
+                }
+                else
+                {
+                    bytes.Add((byte)body[x]);
+                    x++;
+                }
+            }
+            return bytes.ToArray();
         }
     }
 }
