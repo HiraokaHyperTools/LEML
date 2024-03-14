@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>LEML: kenjiuno.LEML.FieldBodyParser Class Reference</title>
+<title>LEML: kenjiuno.LEML.FieldBodyCombine Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,37 +62,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacekenjiuno.html">kenjiuno</a></li><li class="navelem"><a class="el" href="namespacekenjiuno_1_1_l_e_m_l.html">LEML</a></li><li class="navelem"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_field_body_parser.html">FieldBodyParser</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacekenjiuno.html">kenjiuno</a></li><li class="navelem"><a class="el" href="namespacekenjiuno_1_1_l_e_m_l.html">LEML</a></li><li class="navelem"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_field_body_combine.html">FieldBodyCombine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="classkenjiuno_1_1_l_e_m_l_1_1_field_body_parser-members.html">List of all members</a>  </div>
+<a href="classkenjiuno_1_1_l_e_m_l_1_1_field_body_combine-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">kenjiuno.LEML.FieldBodyParser Class Reference</div>  </div>
+<div class="title">kenjiuno.LEML.FieldBodyCombine Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Field body key-value pair values parser  
- <a href="classkenjiuno_1_1_l_e_m_l_1_1_field_body_parser.html#details">More...</a></p>
+<p>Combine splitted field body like <code>name*0</code>, <code>name*1</code>, <code>name*2</code> to <code>name</code>  
+ <a href="classkenjiuno_1_1_l_e_m_l_1_1_field_body_combine.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aac61a114f2ebd0a7e03ef36dd3bc5ae6"><td class="memItemLeft" align="right" valign="top">static List&lt; KeyValuePair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_field_body_parser.html#aac61a114f2ebd0a7e03ef36dd3bc5ae6">Parse</a> (String body)</td></tr>
-<tr class="memdesc:aac61a114f2ebd0a7e03ef36dd3bc5ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse field body  <a href="classkenjiuno_1_1_l_e_m_l_1_1_field_body_parser.html#aac61a114f2ebd0a7e03ef36dd3bc5ae6">More...</a><br /></td></tr>
-<tr class="separator:aac61a114f2ebd0a7e03ef36dd3bc5ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a299145abafe98e3e7ad9e99c04b36d85"><td class="memItemLeft" align="right" valign="top">static List&lt; KeyValuePair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkenjiuno_1_1_l_e_m_l_1_1_field_body_combine.html#a299145abafe98e3e7ad9e99c04b36d85">Combine</a> (IEnumerable&lt; KeyValuePair&lt; string, string &gt;&gt; sourcePairs)</td></tr>
+<tr class="memdesc:a299145abafe98e3e7ad9e99c04b36d85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combine splitted field body  <a href="classkenjiuno_1_1_l_e_m_l_1_1_field_body_combine.html#a299145abafe98e3e7ad9e99c04b36d85">More...</a><br /></td></tr>
+<tr class="separator:a299145abafe98e3e7ad9e99c04b36d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Field body key-value pair values parser </p>
-<p>For example:</p>
-<ul>
-<li><code>text/plain</code> → <code>{"": "text/plain"}</code></li>
-<li><code>text/plain; charset=utf-8</code> → <code>{"": "text/plain", "charset": "utf-8"}</code> </li>
-</ul>
+<div class="textblock"><p>Combine splitted field body like <code>name*0</code>, <code>name*1</code>, <code>name*2</code> to <code>name</code> </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aac61a114f2ebd0a7e03ef36dd3bc5ae6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac61a114f2ebd0a7e03ef36dd3bc5ae6">&#9670;&nbsp;</a></span>Parse()</h2>
+<a id="a299145abafe98e3e7ad9e99c04b36d85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a299145abafe98e3e7ad9e99c04b36d85">&#9670;&nbsp;</a></span>Combine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -101,10 +96,10 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static List&lt;KeyValuePair&lt;string, string&gt; &gt; kenjiuno.LEML.FieldBodyParser.Parse </td>
+          <td class="memname">static List&lt;KeyValuePair&lt;string, string&gt; &gt; kenjiuno.LEML.FieldBodyCombine.Combine </td>
           <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>body</em></td><td>)</td>
+          <td class="paramtype">IEnumerable&lt; KeyValuePair&lt; string, string &gt;&gt;&#160;</td>
+          <td class="paramname"><em>sourcePairs</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -115,14 +110,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Parse field body </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">body</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>pairs</dd></dl>
+<p>Combine splitted field body </p>
 
 </div>
 </div>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['getbodybytes_49',['GetBodyBytes',['../classkenjiuno_1_1_l_e_m_l_1_1_util_mime_body.html#a656da3516ef68dbc805d5acce8d4dbc7',1,'kenjiuno::LEML::UtilMimeBody']]],
-  ['getvalue_50',['GetValue',['../classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#af85633eda3c0ccb9e90431359381f956',1,'kenjiuno::LEML::EML']]]
+  ['fromfile_52',['FromFile',['../classkenjiuno_1_1_l_e_m_l_1_1_mail.html#ad8c07af1f3cfa54a18614f60f3f35b26',1,'kenjiuno::LEML::Mail']]]
 ];

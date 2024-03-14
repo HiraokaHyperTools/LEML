@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eml_47',['EML',['../classkenjiuno_1_1_l_e_m_l_1_1_e_m_l.html#aaf5322f07f922551e5adcfa29e0ada8d',1,'kenjiuno::LEML::EML']]]
+  ['combine_50',['Combine',['../classkenjiuno_1_1_l_e_m_l_1_1_field_body_combine.html#a299145abafe98e3e7ad9e99c04b36d85',1,'kenjiuno::LEML::FieldBodyCombine']]]
 ];
