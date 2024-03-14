@@ -7,7 +7,7 @@ using System.Linq;
 namespace LEML.Tests
 {
     [TestFixture]
-    public class TestEdMaxEnterDotEnterFormatReader
+    public class EdMaxEnterDotEnterFormatReaderTest
     {
         [Test]
         public void Splitter()

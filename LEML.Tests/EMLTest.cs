@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace LEML.Tests
 {
-    public class TestEML
+    public class EMLTest
     {
         [Test]
         public void AsciiFrom()

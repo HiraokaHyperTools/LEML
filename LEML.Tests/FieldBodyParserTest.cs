@@ -8,7 +8,7 @@ using System.Text;
 
 namespace LEML.Tests
 {
-    public class TestFieldBodyParser
+    public class FieldBodyParserTest
     {
         [Test]
         public void Parser()

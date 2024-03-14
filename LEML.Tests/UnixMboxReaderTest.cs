@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace LEML.Tests
 {
-    public class TestUnixMboxReader
+    public class UnixMboxReaderTest
     {
         [Test]
         public void Splitter()

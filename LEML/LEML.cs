@@ -206,14 +206,14 @@ namespace kenjiuno.LEML
         {
             get
             {
-                foreach (var pair in FieldBodyParser.Parse(GetValue("Content-Disposition") ?? ""))
+                foreach (var pair in FieldBodyCombine.Combine(FieldBodyParser.Parse(GetValue("Content-Disposition") ?? "")))
                 {
                     if (pair.Key.Equals("FileName", StringComparison.InvariantCultureIgnoreCase))
                     {
                         return pair.Value;
                     }
                 }
-                foreach (var pair in FieldBodyParser.Parse(GetValue("Content-Type") ?? ""))
+                foreach (var pair in FieldBodyCombine.Combine(FieldBodyParser.Parse(GetValue("Content-Type") ?? "")))
                 {
                     if (pair.Key.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
                     {
@@ -417,11 +417,17 @@ namespace kenjiuno.LEML
 
             var hadEncodedWord = false;
 
+            var heading = true;
+
+            text = text
+                .Replace("\r\n", "")
+                .Replace("\n", "");
+
             foreach (Match match in Regex.Matches(text, "=\\?(?<c>[^\\?]+)\\?(?<e>[BbQq])\\?(?<b>[^\\?]+)\\?="))
             {
                 var leading = text.Substring(lastIndex, match.Index - lastIndex);
 
-                if (hadEncodedWord && string.IsNullOrWhiteSpace(leading))
+                if ((hadEncodedWord || heading) && string.IsNullOrWhiteSpace(leading))
                 {
                     // skip
 
@@ -435,6 +441,8 @@ namespace kenjiuno.LEML
                      * adjacent 'encoded-word's is ignored.
                      * 
                      */
+
+                    heading = false;
                 }
                 else
                 {
@@ -448,7 +456,12 @@ namespace kenjiuno.LEML
                 hadEncodedWord = true;
             }
 
-            result += text.Substring(lastIndex);
+            var trailing = text.Substring(lastIndex);
+
+            if (!string.IsNullOrWhiteSpace(trailing))
+            {
+                result += trailing;
+            }
 
             return result;
         }
@@ -779,6 +792,59 @@ namespace kenjiuno.LEML
             {
                 yield return new Mail { filePath = referenceFilePath, rawBody = b.ToString() };
             }
+        }
+    }
+
+    /// <summary>
+    /// Combine splitted field body like `name*0`, `name*1`, `name*2` to `name`
+    /// </summary>
+    public class FieldBodyCombine
+    {
+        private static readonly Regex _isMultiple = new Regex(@"^(?<name>[^\*]+)\*(?<index>\d+)$");
+
+        /// <summary>
+        /// Combine splitted field body
+        /// </summary>
+        public static List<KeyValuePair<string, string>> Combine(
+            IEnumerable<KeyValuePair<string, string>> sourcePairs
+        )
+        {
+            var pairs = new List<KeyValuePair<string, string>>();
+
+            foreach (var sourcePair in sourcePairs)
+            {
+                var match = _isMultiple.Match(sourcePair.Key);
+                if (match.Success)
+                {
+                    var newKey = match.Groups["name"].Value;
+                    var y = 0;
+                    var cy = pairs.Count;
+                    for (; y < cy; y++)
+                    {
+                        if (pairs[y].Key == newKey)
+                        {
+                            pairs[y] = new KeyValuePair<string, string>(
+                                newKey,
+                                pairs[y].Value + sourcePair.Value
+                            );
+                            break;
+                        }
+                    }
+                    if (y == cy)
+                    {
+                        pairs.Add(new KeyValuePair<string, string>(
+                            newKey,
+                            sourcePair.Value
+                        ));
+                    }
+                }
+                else
+                {
+                    pairs.Add(sourcePair);
+                }
+            }
+
+            return pairs;
         }
     }
 }
