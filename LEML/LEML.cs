@@ -477,7 +477,7 @@ namespace kenjiuno.LEML
             String hex = "0123456789ABCDEF";
             for (int x = 0, cx = s.Length; x < cx;)
             {
-                if (s[x] == ' ')
+                if (s[x] == ' ' || s[x] == '_')
                 {
                     os.WriteByte((byte)' ');
                     x++;
