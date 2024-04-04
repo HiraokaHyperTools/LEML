@@ -22,6 +22,7 @@ namespace LEML.Tests
         [TestCase("これは長い長い長い長い長い件名", " =?UTF-8?B?44GT44KM44Gv6ZW344GE6ZW344GE6ZW344GE6ZW344GE6ZW344GE5Lu2?=\r\n =?UTF-8?B?5ZCN?=")]
         [TestCase("これは長い long long 長い件名です", " =?UTF-8?B?44GT44KM44Gv6ZW344GEIGxvbmcgbG9uZyDplbfjgYTku7blkI3jgac=?=\r\n =?UTF-8?B?44GZ?=")]
         [TestCase("これは 1234567890 件名", " =?ISO-2022-JP?B?GyRCJDMkbCRPGyhC?= 1234567890\r\n =?ISO-2022-JP?B?GyRCN29MPhsoQg==?=")]
+        [TestCase("\n\n\n      \n \n \n    \n  \n  \n  \n   \n\nGoogle Cloud Platfo", "=?UTF-8?B?CgoKICAgICAgCiAKIAogICAgCiAgCiAgCiAgCiAgIAoKR29vZ2xlIENsb3VkIFBsYXRmbw==?=")]
         public void Decodes(string expected, string input)
         {
             ClassicAssert.AreEqual(expected, UtilDecodeRfc2047.Decode(input));
