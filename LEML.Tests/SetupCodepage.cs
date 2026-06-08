@@ -14,7 +14,7 @@ namespace LEML.Tests
         [OneTimeSetUp]
         public void Setup()
         {
-#if NET6_0
+#if NET6_0_OR_GREATER
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 #endif
         }
